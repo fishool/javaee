@@ -6,9 +6,13 @@ import com.ijavac.springcloud.entities.Payment;
 import com.ijavac.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zzyy
@@ -23,11 +27,11 @@ public class PaymentController {
     @Value("${server.port}")
     private String serverPort;
 
-//    /**
-//     * 服务发现 获取服务信息
-//     */
-//    @Resource
-//    private DiscoveryClient discoveryClient;
+    /**
+     * 服务发现 获取服务信息
+     */
+    @Resource
+    private DiscoveryClient discoveryClient;
 
     /**
      * 新增
@@ -63,52 +67,52 @@ public class PaymentController {
         return new CommonResult(444, "没有对应记录,查询ID:" + id, null);
     }
 
-//
-//    /**
-//     * 服务发现
-//     *
-//     * @return
-//     */
-//    @GetMapping(value = "payment/discovery")
-//    public Object discovery() {
-//        List<String> services = discoveryClient.getServices();
-//        for (String element : services) {
-//            log.info("*****element:" + element);
-//        }
-//        // 一个微服务下的全部实例
-//        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-//        for (ServiceInstance instance : instances) {
-//            log.debug(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() +
-//                    instance.getUri());
-//        }
-//        return this.discoveryClient;
-//    }
-//
-//    @GetMapping(value = "/payment/lb")
-//    public String getPaymentLB() {
-//        return serverPort;
-//    }
-//
-//
-//    @GetMapping(value = "/payment/feign/timeout")
-//    public String paymentFeignTimeout() {
-//        try {
-//            // 暂停3秒钟
-//            TimeUnit.SECONDS.sleep(3);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        return serverPort;
-//    }
-//
-//    /**
-//     * 链路跟踪
-//     *
-//     * @return
-//     */
-//    @GetMapping(value = "/payment/zipkin")
-//    public String paymentZipkin() {
-//        return "hi,i'am paymentZipkin server fall back,welcome to ijavac,O(∩_∩)O哈哈~";
-//    }
+
+    /**
+     * 服务发现
+     *
+     * @return
+     */
+    @GetMapping(value = "payment/discovery")
+    public Object discovery() {
+        List<String> services = discoveryClient.getServices();
+        for (String element : services) {
+            log.info("*****element:" + element);
+        }
+        // 一个微服务下的全部实例
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        for (ServiceInstance instance : instances) {
+            log.debug(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() +
+                    instance.getUri());
+        }
+        return this.discoveryClient;
+    }
+
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB() {
+        return serverPort;
+    }
+
+
+    @GetMapping(value = "/payment/feign/timeout")
+    public String paymentFeignTimeout() {
+        try {
+            // 暂停3秒钟
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
+    }
+
+    /**
+     * 链路跟踪
+     *
+     * @return
+     */
+    @GetMapping(value = "/payment/zipkin")
+    public String paymentZipkin() {
+        return "hi,i'am paymentZipkin server fall back,welcome to ijavac,O(∩_∩)O哈哈~";
+    }
 
 }

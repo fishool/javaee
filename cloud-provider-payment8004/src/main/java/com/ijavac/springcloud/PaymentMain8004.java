@@ -3,19 +3,17 @@ package com.ijavac.springcloud;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
- * @ClassName : PaymentMain8001
- * @Description : 启动类
- * @Author : ijavac
- * @date: 2020-03-30 14:39
- */
+ * 支付模块启动类-Zookeeper
+ * EnableDiscoveryClient 该注解用于向使用consul或者zookeeper作为注册中心时注册服务
+ * @author zzyy
+ * @create 2020/2/19 14:15
+ **/
 @SpringBootApplication
-@EnableEurekaClient
 @EnableDiscoveryClient
-public class PaymentMain8001 {
+public class PaymentMain8004 {
     public static void main(String[] args) {
-        SpringApplication.run(PaymentMain8001.class);
+        SpringApplication.run(PaymentMain8004.class, args);
     }
 }
