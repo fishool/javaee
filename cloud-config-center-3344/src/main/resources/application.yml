@@ -9,21 +9,24 @@ spring:
     config:
       server:
         git:
-          uri: git@github.com:leelovejava/springcloud-config.git
+          uri: https://github.com/fishool/springcloud-config.git
+          # 指定查找目录
           search-paths:
             - spring-config
+            - myorder
       label: master
+#http://localhost:3344/master/config-dev.yml
   rabbitmq:
-    host: localhost
+    host: 119.28.44.14
     port: 5672
-    username: guest
-    password: guest
+    username: admin
+    password: 851158220
 
 
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
 
 # 暴露bus刷新配置的端点
 

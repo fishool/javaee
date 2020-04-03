@@ -1,5 +1,6 @@
+#bootstrap 优先级高于 application
 server:
-  port: 3355
+  port: 3345
 
 spring:
   application:
@@ -7,21 +8,22 @@ spring:
   cloud:
     config:
       label: master # 分支名称
-      name: config #配置文件名称
+      name: config,config-order #配置文件名称  多个名称用逗号隔开
       profile: dev # 读取的后缀，上述三个综合，为master分支上的config-dev.yml的配置文件被读取，http://config-3344.com:3344/master/config-dev.yml
       uri: http://config-3344.com:3344 #配置中心的地址
   rabbitmq: #rabbitmq相关配置，15672是web管理端口，5672是mq访问端口
     port: 5672
-    host: localhost
-    username: guest
-    password: guest
+    host: 119.28.44.14
+    username: admin
+    password: 851158220
 
 
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
 
+# 暴露监控端点， 用于更新最新配置
 management:
   endpoints:
     web:
