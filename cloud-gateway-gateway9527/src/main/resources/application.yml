@@ -10,4 +10,17 @@ spring:
   cloud: #配置SpringCloudGateway的路由
     nacos:
         discovery:
-           server-addr: 192.168.92.216:8848 #注册中心地址
+           server-addr: 127.0.0.1:8848 #注册中心地址
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: false
+
+      routes:
+        - id: javastudy       #唯一id
+          uri: lb://javastudy #跳转服务
+          predicates:         #匹配路径
+            - Path=/javastudy/**
+          filters:          # 跳转后 截掉path路径 前几位
+            - StripPrefix=1
