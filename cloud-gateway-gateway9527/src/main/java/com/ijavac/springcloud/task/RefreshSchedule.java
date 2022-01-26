@@ -18,6 +18,7 @@ public class RefreshSchedule {
 
     private final static Logger logger = LoggerFactory.getLogger(RefreshSchedule.class);
 
+    // 每10s一次
     @Scheduled(fixedDelay = 10000)
     public void reissueOrder() {
         logger.info("刷新路由定时任务");

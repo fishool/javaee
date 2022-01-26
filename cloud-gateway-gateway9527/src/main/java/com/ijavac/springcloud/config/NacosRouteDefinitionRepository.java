@@ -30,6 +30,8 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
     private String loginUrl = "http://{}/nacos/v1/auth/users/login";
     String serviceListUrl = "http://{}/nacos/v1/ns/catalog/services?hasIpCount=true&withInstances=false&pageNo=1&pageSize=10000&serviceNameParam=&groupNameParam=&accessToken={}&namespaceId=";
     private Map logParam ;
+
+
     @PostConstruct
     public void init() {
         logParam = new HashMap<>();
@@ -84,14 +86,14 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
             List<PredicateDefinition> predicateDefinitions = new ArrayList<>();
             PredicateDefinition predicateDefinition = new PredicateDefinition();
             predicateDefinition.setName("Path");
-            predicateDefinition.addArg("Path", "/"+serverName+"/**");
+            predicateDefinition.addArg("pattern", "/"+serverName+"/**");
             predicateDefinitions.add(predicateDefinition);
             routeDefinition.setPredicates(predicateDefinitions);
 
             List<FilterDefinition> filters = new ArrayList<>();
             FilterDefinition filterDefinition = new FilterDefinition();
             filterDefinition.setName("StripPrefix");
-            filterDefinition.addArg("StripPrefix", "1");
+            filterDefinition.addArg("parts", "1");
             filters.add(filterDefinition);
             routeDefinition.setFilters(filters);
 
